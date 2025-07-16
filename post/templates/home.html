@@ -1,0 +1,61 @@
+{% extends 'base.html' %} {% load static %} {% block main_content %}
+<div class="container">
+  <div class="column">
+    <div class="column left">
+            <p>
+        {% if user.is_authenticated %}
+          <p>Hi, {{ user.username }}!</p>
+        {% else %}
+        <p>Welcome, guest!</p>
+        {% endif %}
+      </p>
+      <h2>Side</h2>
+
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit..</p>
+
+      <h2>Main Content</h2>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit
+        amet pretium urna. Vivamus venenatis velit nec neque ultricies, eget
+        elementum magna tristique. Quisque vehicula, risus eget aliquam
+        placerat, purus leo tincidunt eros, eget luctus quam orci in velit.
+        Praesent scelerisque tortor sed accumsan convallis.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit
+        amet pretium urna. Vivamus venenatis velit nec neque ultricies, eget
+        elementum magna tristique. Quisque vehicula, risus eget aliquam
+        placerat, purus leo tincidunt eros, eget luctus quam orci in velit.
+        Praesent scelerisque tortor sed accumsan convallis.
+      </p>
+    </div>
+
+    <div class="column right">
+      <h2>BLOG</h2>
+
+      <p>
+        A blog is an online journal or informational website where an
+        individual, group, or organization writes articles or posts regularly.
+      </p>
+      <img
+        src="{% static 'image/images.jpg' %}"
+        alt="Sample Image"
+        class="image"
+      />
+      <input type="text" placeholder="Enter y0ur c0ntent" />
+    </div>
+  </div>
+</div>
+<h2>Posts</h2>
+<ul>
+  {% for post in posts %}
+    <li>
+      <h3>{{ post.title }}</h3>
+      <p><strong>Author:</strong> {{ post.author }}</p>
+      <p><strong>Category:</strong> {{ post.category }}</p>
+      <p><strong>Date:</strong> {{ post.date }}</p>
+      <p>{{ post.desc }}</p>
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}

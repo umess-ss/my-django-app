@@ -1,0 +1,23 @@
+<header class="main-header">
+  <div class="logo">
+    <h1>🖤 BLACK AND WHITE</h1>
+  </div>
+  <nav class="links">
+    <a href="{% url 'index' %}">Home</a>
+    <a href="{% url 'category_list' %}">Categories</a>
+    <a href="{% url 'about' %}">About</a>
+    <a href="{% url "contact" %}">Contact</a>
+    {% if user.is_authenticated %}
+    <form
+      method="post"
+      action="{% url 'account_logout' %}"
+      style="display: inline"
+    >
+      {% csrf_token %}
+      <button type="submit" class="btn">Logout</button>
+    </form>
+    {% else %}
+    <a href="{% url 'account_login' %}">Login</a>
+    {% endif %}
+  </nav>
+</header>
