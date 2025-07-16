@@ -2,13 +2,13 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from allauth.socialaccount.models import SocialApp
-from .models import post
+from .models import Post
 
 
 from django.shortcuts import render
 
 def index(request):
-    posts = post.objects.all()
+    posts = Post.objects.all()
     return render(request, 'home.html', {
         "posts": posts
     })

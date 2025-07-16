@@ -52,10 +52,11 @@
     <li>
       <h3>{{ post.title }}</h3>
       <p><strong>Author:</strong> {{ post.author }}</p>
-      <p><strong>Category:</strong> {{ post.category }}</p>
-      <p><strong>Date:</strong> {{ post.date }}</p>
-      <p>{{ post.desc }}</p>
+      <p><strong>Category:</strong> {{ post.category.name }}</p>
+      <p><strong>Date:</strong> {{ post.created_at|date:"F d, Y" }}</p>
+      <p>{{ post.content }}</p>
     </li>
   {% endfor %}
 </ul>
+
 {% endblock %}

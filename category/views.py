@@ -1,9 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from .models import Category
 
 # Sample view to display a list of categories
 def category_list(request):
-    categories = ['Technology', 'Health', 'Education', 'Sports']  # sample data
+    categories = Category.objects.all()
     return render(request, 'category/category_list.html', {'categories': categories})
 
 # Sample view to display details of a single category
