@@ -1,14 +1,18 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Category
+from post.models import Post
 
 # Sample view to display a list of categories
 def category_list(request):
     categories = Category.objects.all()
     return render(request, 'category/category_list.html', {'categories': categories})
 
-# Sample view to display details of a single category
-def category_detail(request, category_name):
-    return HttpResponse(f"Details for category: {category_name}")
-
-
+# Updated category detail view
+def category_detail(request, id):
+    category = get_object_or_404(Category, id=id)
+    posts = Post.objects.filter(category=category)
+    return render(request, 'category/category_detail.html', {
+        'category': category,
+        'posts': posts
+    })
