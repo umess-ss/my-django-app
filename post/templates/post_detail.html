@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block main_content %}
+  <h2>{{ post.title }}</h2>
+  <p><small>By {{ post.author }} on {{ post.created_at }}</small></p>
+  <div>
+    {{ post.content|linebreaks }}  {# no truncate here #}
+  </div>
+  <a href="javascript:history.back()">← Back</a>
+{% endblock %}

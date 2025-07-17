@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block main_content %}
   <h2>Posts under "{{ category.name }}"</h2>
+
   {% if posts %}
     <ul>
       {% for post in posts %}
@@ -8,10 +9,12 @@
           <strong>{{ post.title }}</strong><br>
           <small>By {{ post.author }} on {{ post.created_at }}</small><br>
           <p>{{ post.content|truncatewords:30 }}</p>
+          <a href="{% url 'post_detail' slug=post.slug %}">Read more</a>
         </li>
       {% endfor %}
     </ul>
   {% else %}
     <p>No posts found in this category.</p>
   {% endif %}
+
 {% endblock %}

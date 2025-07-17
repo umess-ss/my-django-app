@@ -55,7 +55,7 @@
       <p><strong>Category:</strong> {{ post.category.name }}</p>
       <p><strong>Date:</strong> {{ post.created_at|date:"F d, Y" }}</p>
       <p>{{ post.content|truncatewords:30 }}</p>
-      <a href="{}">Read more</a>
+      <a href="{% url 'post_detail' slug=post.slug %}">Read more</a>
     </li>
   {% endfor %}
 </ul>

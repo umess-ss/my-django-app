@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from allauth.socialaccount.models import SocialApp
@@ -19,6 +19,10 @@ def index1(request):
 
 def index2(request):
     return render(request, 'pst.html')
+
+def post_detail(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    return render(request, 'post_detail.html', {'post': post})
 
 @login_required
 def profile(request):

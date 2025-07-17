@@ -4,7 +4,7 @@ from django.db import models
 class Category(models.Model):
     name = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
-    pub_date = models.DateTimeField("date published")
+    pub_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         db_table = 'categories'
