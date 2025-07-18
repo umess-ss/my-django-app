@@ -1,6 +1,7 @@
 from django.db import models
 from category.models import Category
 from django.utils.text import slugify
+from blogs.utils.slug import generate_unique_slug
 
 
 class Post(models.Model):
@@ -12,14 +13,10 @@ class Post(models.Model):
     created_at =models.DateTimeField(auto_now_add=True)
 
     def save(self,*args,**kwargs):
-        base_slug = slugify(self.title)
-        slug = base_slug
-        counter = 1
-        while Post.objects.filter(slug=slug).exists():
-            slug = f"{base_slug}-{counter}"
-            counter += 1
-        self.slug = base_slug
+        if not self.pk or Post.objects.get(pk=self.pk).title != self.title:
+            self.slug = generate_unique_slug(Post, self.title)
         super().save(*args,**kwargs)
+
 
 
     class Meta:

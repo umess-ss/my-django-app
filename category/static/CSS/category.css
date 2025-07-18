@@ -1,0 +1,21 @@
+ul.category-list {
+  list-style: none;
+  margin: 25px 50px;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+li.category-item {
+  background: #f9f9f9;
+  border-radius: 12px;
+  padding: 15px 20px;
+}
+
+.category-item a {
+  text-decoration: none;
+  color: black;
+  background: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+}

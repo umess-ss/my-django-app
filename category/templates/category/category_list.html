@@ -1,8 +1,17 @@
-{% extends 'base.html' %} {% block main_content %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/category.css' %}">
+{% endblock %}
+
+{% block main_content %}
 <h1>Categories</h1>
-<ul>
+<ul class="category-list">
   {% for category in categories %}
-  <li><a href="{% url 'category_detail' category.pk %}">{{ category.name }}</a></li>
+  <li class="category-item">
+    <a href="{% url 'category_detail' category.pk %}">{{ category.name }}</a>
+  </li>
   {% endfor %}
 </ul>
 {% endblock %}

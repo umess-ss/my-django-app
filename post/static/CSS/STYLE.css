@@ -187,3 +187,8 @@ footer {
     color: green;
     margin-bottom: 10px;
 }
+
+h1,h2{
+  display:flex;
+  justify-content:center;
+}
