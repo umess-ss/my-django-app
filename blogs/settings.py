@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'category',
     'about',
     'contact',
+    'useraccount',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
