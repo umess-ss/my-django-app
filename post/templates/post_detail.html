@@ -1,9 +1,40 @@
 {% extends 'base.html' %}
+
 {% block main_content %}
   <h2>{{ post.title }}</h2>
   <p><small>By {{ post.author }} on {{ post.created_at }}</small></p>
   <div>
-    {{ post.content|linebreaks }}  {# no truncate here #}
+    {{ post.content|linebreaks }}
   </div>
   <a href="javascript:history.back()">← Back</a>
+
+  <hr>
+
+  <!-- Show Comments -->
+  <h3>Comments ({{ comments.count }})</h3>
+  {% for comment in comments %}
+    <div class="comment-box">
+      <strong>{{ comment.user.username }}</strong> 
+      <small>on {{ comment.created_at|date:"F j, Y, g:i a" }}</small>
+      <p>{{ comment.content }}</p>
+    </div>
+  {% empty %}
+    <p>No comments yet.</p>
+  {% endfor %}
+
+  <hr>
+
+  <!-- Show Comment Form for Logged In Users -->
+  {% if user.is_authenticated %}
+    <h3>Leave a Comment</h3>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Submit Comment</button>
+    </form>
+  {% else %}
+    <p>
+      <a href="{% url 'account_login' %}">Log in</a> to post a comment.
+    </p>
+  {% endif %}
 {% endblock %}
