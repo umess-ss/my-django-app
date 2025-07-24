@@ -10,31 +10,34 @@
 
   <hr>
 
-  <!-- Show Comments -->
-  <h3>Comments ({{ comments.count }})</h3>
-  {% for comment in comments %}
-    <div class="comment-box">
-      <strong>{{ comment.user.username }}</strong> 
-      <small>on {{ comment.created_at|date:"F j, Y, g:i a" }}</small>
-      <p>{{ comment.content }}</p>
-    </div>
-  {% empty %}
-    <p>No comments yet.</p>
-  {% endfor %}
 
-  <hr>
 
-  <!-- Show Comment Form for Logged In Users -->
-  {% if user.is_authenticated %}
-    <h3>Leave a Comment</h3>
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="btn btn-primary">Submit Comment</button>
-    </form>
-  {% else %}
-    <p>
-      <a href="{% url 'account_login' %}">Log in</a> to post a comment.
-    </p>
-  {% endif %}
-{% endblock %}
+<div>
+	{% if user.is_authenticated %}
+	<form method="post" action="{% url 'add_comment' post.id %}">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit">Comment</button>
+	</form>
+	{% else %}
+	<p>Please Login to comment.</p>
+	{% endif %}
+	<div>
+		<h3>Comments {{ comments.count }} </h3>
+		{% for comment in comments %}
+		<div>
+			<p><strong>{{ comment.user }}</strong>: {{ comment.content }}</p>
+			<small>{{ comment.created_at }}</small>
+
+			{% if user == comment.user %}
+			<a href="{% url 'edit_comment' comment.pk %}">Edit</a>
+			<a href="{% url 'delete_comment' comment.pk %}">Delete</a>
+			{% elif user.is_superuser %}
+			<a href="{% url 'delete_comment' comment.pk %}">Delete</a>
+			{% endif %}
+		</div>
+		<hr> {% empty %}
+		<p>No comments yet! Be the first </p>
+		{% endfor %}
+	</div>
+</div>{% endblock %}

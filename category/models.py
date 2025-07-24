@@ -1,13 +1,14 @@
 from django.db import models
 from blogs.utils.slug import generate_unique_slug
 from django.utils.text import slugify
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
     pub_date = models.DateTimeField(auto_now_add=True)
-
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='categories')
 
     def save(self,*args,**kwargs):
         if not self.pk or Category.objects.get(pk=self.pk).name != self.name:

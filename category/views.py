@@ -1,3 +1,6 @@
+from django.urls import reverse_lazy
+from django.views.generic import DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render, get_object_or_404
 from .models import Category
 from post.models import Post
@@ -14,3 +17,5 @@ def category_detail(request, id):
         'category': category,
         'posts': posts
     })
+
+
