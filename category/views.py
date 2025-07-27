@@ -4,6 +4,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render, get_object_or_404
 from .models import Category
 from post.models import Post
+from django_components.component_registry import registry
+print("Registered components:", registry._registry.keys())
 
 def category_list(request):
     categories = Category.objects.all()

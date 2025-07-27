@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
 from pathlib import Path
+from django_components import ComponentsSettings
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,6 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django_components',
+    'rest_framework',
+    'tailwind',  
+    'theme',
     'post',
     'category',
     'about',
@@ -61,7 +66,7 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'allauth.account.middleware.AccountMiddleware', 
 ]
-
+TAILWIND_APP_NAME = 'theme'
 ROOT_URLCONF = 'blogs.urls'
 # urls.py indicate
 
@@ -69,16 +74,28 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [BASE_DIR/'templates'],
-        'APP_DIRS': True,
+        # 'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'loaders':[(
+                'django.template.loaders.cached.Loader', [
+                    # Default Django loader
+                    'django.template.loaders.filesystem.Loader',
+                    # Including this is the same as APP_DIRS=True
+                    'django.template.loaders.app_directories.Loader',
+                    # Components loader
+                    'django_components.template_loader.Loader',
+                ],
+                
+            )],
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'blogs.wsgi.application'
 # depl0yment ma run kasari
@@ -132,7 +149,13 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS=[
     BASE_DIR / "static",
 ]
-
+STATICFILES_FINDERS = [
+    # Default finders
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    # Django components
+    "django_components.finders.ComponentsFileSystemFinder",
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
@@ -156,3 +179,13 @@ AUTHENTICATION_BACKENDS = [
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
+
+
+
+# This is for handling our components from django-components app.
+COMPONENTS = ComponentsSettings(
+    dirs=[
+        Path(BASE_DIR) / "components",
+    ],
+    reload_on_file_change=True
+)

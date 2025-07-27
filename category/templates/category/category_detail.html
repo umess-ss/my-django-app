@@ -2,11 +2,6 @@
 {% block main_content %}
   <h2>Posts under "{{ category.name }}"</h2>
 
-  {% if user.is_superuser or user == category.author %}
-    <p>
-      <a href="{% url 'category_delete' category.pk %}">🗑️ Delete this category</a>
-    </p>
-  {% endif %}
 
   {% if posts %}
     <ul>

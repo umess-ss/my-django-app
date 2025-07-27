@@ -1,17 +1,15 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load component_tags %}
 
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/category.css' %}">
-{% endblock %}
 
 {% block main_content %}
-<h1>Categories</h1>
-<ul class="category-list">
-  {% for category in categories %}
-  <li class="category-item">
-    <a href="{% url 'category_detail' category.pk %}">{{ category.name }}</a>
-  </li>
-  {% endfor %}
-</ul>
+<h1>All Categories</h1>
+
+<div class="flex flex-row space-x-2">
+	{% for category in categories %}
+	{% component "category_card" category=category %}{% endcomponent %}
+	{% empty %}
+	<p>No categories found.test</p>
+	{% endfor %}
+</div>
 {% endblock %}

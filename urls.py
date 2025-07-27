@@ -8,4 +8,5 @@ urlpatterns = [
     path('about/',include('about.urls')),
     path('contact/',include('contact.urls')),
     path('accounts/', include('allauth.urls')),
+    path("", include("django_components.urls")),
 ]

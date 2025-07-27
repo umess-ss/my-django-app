@@ -1,6 +1,7 @@
 {% extends 'base.html' %} {% load static %} 
+{% load component_tags %}
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/post_css.css' %}">
+  <link rel="stylesheet" href="{% static 'CSS/post/home.css' %}">
 {% endblock %}
 {% block main_content %}
 <div class="container">
@@ -51,15 +52,11 @@
 <h2>Posts</h2>
 <ul class="post-list">
   {% for post in posts %}
-    <li class="post-card">
-      <h3>{{ post.title }}</h3>
-      <p><strong>Author:</strong> {{ post.author }}</p>
-      <p><strong>Category:</strong> {{ post.category.name }}</p>
-      <p><strong>Date:</strong> {{ post.created_at|date:"F d, Y" }}</p>
-      <p>{{ post.content|truncatewords:30 }}</p>
-      <a href="{% url 'post_detail' slug=post.slug %}" class="read-more">Read more →</a>
-    </li>
+
+  {% component "post_card" post=post %}{% endcomponent %}
   {% endfor %}
+
+  
 </ul>
 
 {% endblock %}

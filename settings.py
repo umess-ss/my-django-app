@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'django_components',
     'post',
     'category',
     'about',
@@ -69,13 +70,23 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [BASE_DIR/'templates'],
-        'APP_DIRS': True,
+        # 'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+                        'loaders':[(
+                'django.template.loaders.cached.Loader', [
+                    # Default Django loader
+                    'django.template.loaders.filesystem.Loader',
+                    # Including this is the same as APP_DIRS=True
+                    'django.template.loaders.app_directories.Loader',
+                    # Components loader
+                    'django_components.template_loader.Loader',
+                ]
+            )],
         },
     },
 ]
@@ -131,6 +142,14 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS=[
     BASE_DIR / "static",
+]
+
+STATICFILES_FINDERS = [
+    # Default finders
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    # Django components
+    "django_components.finders.ComponentsFileSystemFinder",
 ]
 
 # Default primary key field type
