@@ -10,4 +10,5 @@ urlpatterns = [
     path('contact/',include('contact.urls')),
     path('accounts/', include('allauth.urls')),
     path("", include("django_components.urls")),
+    path('api/', include('api.urls')),
 ]
